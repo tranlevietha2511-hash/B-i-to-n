@@ -5,421 +5,150 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Bói toán chính xác cho cuộc đời bạn</title>
   <style>
-    :root{
-      --bg1:#0b1220;
-      --bg2:#0f1b33;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.08);
-      --border: rgba(255,255,255,.14);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.68);
-      --accent: #7c5cff;
-      --accent2:#2ee59d;
-      --danger:#ff4d6d;
-      --shadow: 0 18px 50px rgba(0,0,0,.45);
-      --radius: 18px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
-      background:
-        radial-gradient(1200px 800px at 20% 10%, rgba(124,92,255,.25), transparent 55%),
-        radial-gradient(1000px 700px at 80% 20%, rgba(46,229,157,.18), transparent 55%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:28px 16px;
-    }
-    .wrap{
-      width:min(980px, 100%);
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:18px;
-    }
-    @media (max-width: 880px){
-      .wrap{grid-template-columns:1fr}
-    }
-    .card{
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      backdrop-filter: blur(10px);
-    }
-    header{
-      padding:22px 22px 16px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      background: linear-gradient(135deg, rgba(124,92,255,.18), rgba(46,229,157,.10));
-    }
-    h1{
-      margin:0 0 6px;
-      font-size: clamp(20px, 2.6vw, 34px);
-      letter-spacing:.2px;
-      line-height:1.15;
-    }
-    .sub{
-      margin:0;
-      color:var(--muted);
-      font-size: 14px;
-      line-height:1.4;
-    }
-    .content{padding:18px 22px 22px}
-    .q{
-      padding:14px 14px 12px;
-      border-radius: 14px;
-      background: var(--card2);
-      border: 1px solid rgba(255,255,255,.10);
-      margin-bottom:12px;
-    }
-    .q h3{
-      margin:0 0 10px;
-      font-size:15px;
-      font-weight:650;
-      line-height:1.35;
-    }
-    .hint{
-      margin:0 0 10px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-    label{
-      display:block;
-      font-size:12px;
-      color:var(--muted);
-      margin:8px 0 6px;
-    }
-    input, textarea{
-      width:100%;
-      padding:11px 12px;
-      border-radius: 12px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.22);
-      color: var(--text);
-      outline: none;
-      transition: .18s ease;
-    }
-    input::placeholder, textarea::placeholder{color: rgba(255,255,255,.45)}
-    input:focus, textarea:focus{
-      border-color: rgba(124,92,255,.55);
-      box-shadow: 0 0 0 4px rgba(124,92,255,.18);
-    }
-    textarea{min-height: 88px; resize: vertical}
-    .row3{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px}
-    @media (max-width: 520px){ .row3{grid-template-columns:1fr} }
-    .actions{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      margin-top:14px;
-    }
-    .btn{
-      cursor:pointer;
-      border:none;
-      padding:12px 14px;
-      border-radius: 14px;
-      font-weight: 750;
-      letter-spacing: .2px;
-      color: #0a0f1c;
-      background: linear-gradient(135deg, var(--accent), #b39cff);
-      box-shadow: 0 14px 34px rgba(124,92,255,.22);
-      transition: transform .12s ease, filter .12s ease;
-      flex: 1;
-    }
-    .btn:hover{transform: translateY(-1px); filter: brightness(1.02)}
-    .btn:active{transform: translateY(0px)}
-    .btn2{
-      cursor:pointer;
-      padding:12px 14px;
-      border-radius: 14px;
-      font-weight: 700;
-      color: var(--text);
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.14);
-      flex: 0;
-      min-width: 140px;
-    }
-    .side{
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-    }
-    .panel{
-      padding:18px 18px 16px;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      font-size: 12px;
-      color: rgba(255,255,255,.78);
-      padding:8px 10px;
-      border:1px solid rgba(255,255,255,.14);
-      border-radius: 999px;
-      background: rgba(0,0,0,.20);
-      margin-bottom:10px;
-    }
-    .dot{
-      width:9px;height:9px;border-radius:999px;
-      background: linear-gradient(135deg, var(--accent2), #9af7d1);
-      box-shadow: 0 0 0 4px rgba(46,229,157,.12);
-    }
-    .result{
-      margin-top:10px;
-      padding:14px;
-      border-radius: 16px;
-      border: 1px dashed rgba(255,255,255,.22);
-      background: rgba(0,0,0,.20);
-    }
-    .result h2{
-      margin:0 0 8px;
-      font-size:16px;
-    }
-    .result p{
-      margin:0;
-      color: var(--muted);
-      line-height:1.5;
-      font-size: 13px;
-    }
-    .big{
-      margin-top:10px;
-      padding:14px;
-      border-radius: 16px;
-      border:1px solid rgba(46,229,157,.22);
-      background: linear-gradient(135deg, rgba(46,229,157,.12), rgba(124,92,255,.10));
-    }
-    .big .name{
-      font-size: 18px;
-      font-weight: 850;
-      letter-spacing:.2px;
-      margin: 2px 0 6px;
-    }
-    .big .meta{
-      font-size: 13px;
-      color: rgba(255,255,255,.72);
-      line-height:1.5;
-      margin:0;
-    }
-    .history{
-      margin-top:10px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      max-height: 320px;
-      overflow:auto;
-      padding-right: 4px;
-    }
-    .item{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      border-radius: 14px;
-      padding:12px 12px 10px;
-    }
-    .item .top{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:flex-start;
-    }
-    .item .time{
-      font-size: 11px;
-      color: rgba(255,255,255,.56);
-      white-space: nowrap;
-    }
-    .item .mini{
-      font-size: 12px;
-      color: rgba(255,255,255,.72);
-      margin:8px 0 0;
-      line-height: 1.45;
-    }
-    .muted{color:var(--muted)}
-    .warn{color: rgba(255,255,255,.78); font-size: 12px; line-height:1.45}
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      padding:4px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.78);
-    }
-    .divider{
-      height:1px; background: rgba(255,255,255,.10);
-      margin: 12px 0;
-    }
+    body{margin:0;font-family:system-ui;background:#0b1220;color:#fff;display:flex;justify-content:center;padding:24px}
+    .wrap{width:min(920px,100%);display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+    @media (max-width:860px){.wrap{grid-template-columns:1fr}}
+    .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:16px}
+    h1{margin:0 0 8px;font-size:24px}
+    .muted{color:rgba(255,255,255,.7);font-size:13px;line-height:1.5}
+    .q{margin-top:12px;padding:12px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+    .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    @media (max-width:520px){.row3{grid-template-columns:1fr}}
+    label{display:block;font-size:12px;color:rgba(255,255,255,.7);margin:8px 0 6px}
+    input,textarea{width:100%;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.25);color:#fff;outline:none}
+    textarea{min-height:90px;resize:vertical}
+    .actions{display:flex;gap:10px;margin-top:12px}
+    button{padding:12px 14px;border-radius:14px;border:0;cursor:pointer;font-weight:700}
+    #submitBtn{flex:1;background:linear-gradient(135deg,#7c5cff,#b39cff)}
+    #clearBtn{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18)}
+    .result{margin-top:10px;padding:12px;border-radius:14px;border:1px dashed rgba(255,255,255,.2);background:rgba(0,0,0,.2)}
+    .big{margin-top:10px;padding:12px;border-radius:14px;border:1px solid rgba(46,229,157,.22);background:rgba(46,229,157,.08)}
+    .name{font-size:18px;font-weight:850;margin:6px 0}
   </style>
 </head>
 <body>
   <main class="wrap">
-    <!-- FORM -->
     <section class="card">
-      <header>
-        <h1>Bói toán chính xác cho cuộc đời bạn</h1>
-        <p class="sub">Trả lời 3 câu hỏi bên dưới. Bấm <b>Xem kết quả</b> để hệ thống “ghi nhận” và đưa ra phán đoán (mang tính giải trí).</p>
-      </header>
+      <h1>Bói toán chính xác cho cuộc đời bạn</h1>
+      <div class="muted">Điền khảo sát và bấm <b>Xem kết quả</b>. Kết quả sẽ luôn chọn <b>người số 1</b>.</div>
 
-      <div class="content">
-        <form id="surveyForm">
-          <div class="q">
-            <h3>1) Hãy kể họ tên 3 người con gái bạn yêu. Tôi sẽ đoán xem ai là vợ tương lai của bạn</h3>
-            <p class="hint">Nhập đúng 3 người. Nếu bạn nhập ít hơn, hệ thống vẫn “cố đoán”.</p>
-            <div class="row3">
-              <div>
-                <label>Người số 1</label>
-                <input id="girl1" placeholder="Ví dụ: Nguyễn Thị A" autocomplete="off" />
-              </div>
-              <div>
-                <label>Người số 2</label>
-                <input id="girl2" placeholder="Ví dụ: Trần Thị B" autocomplete="off" />
-              </div>
-              <div>
-                <label>Người số 3</label>
-                <input id="girl3" placeholder="Ví dụ: Lê Thị C" autocomplete="off" />
-              </div>
+      <form id="surveyForm">
+        <div class="q">
+          <b>1) Hãy kể họ tên 3 người con gái bạn yêu.</b>
+          <div class="row3" style="margin-top:10px">
+            <div>
+              <label>Người số 1</label>
+              <input id="girl1" placeholder="Nguyễn Thị A" />
+            </div>
+            <div>
+              <label>Người số 2</label>
+              <input id="girl2" placeholder="Trần Thị B" />
+            </div>
+            <div>
+              <label>Người số 3</label>
+              <input id="girl3" placeholder="Lê Thị C" />
             </div>
           </div>
+        </div>
 
-          <div class="q">
-            <h3>2) Bạn kể 3 điểm mà bạn yêu ở người mà bạn yêu nhất.</h3>
-            <p class="hint">Gợi ý: tính cách, thói quen, năng lực, giá trị sống...</p>
-            <textarea id="like3" placeholder="Ví dụ:
-1) Dịu dàng, biết lắng nghe
-2) Có trách nhiệm
-3) Luôn động viên mình"></textarea>
-          </div>
+        <div class="q">
+          <b>2) Bạn kể 3 điểm mà bạn yêu ở người mà bạn yêu nhất.</b>
+          <textarea id="like3" placeholder="1) ...
+2) ...
+3) ..."></textarea>
+        </div>
 
-          <div class="q">
-            <h3>3) Hãy kể 3 điểm bạn không thích của cô ấy.</h3>
-            <p class="hint">Chỉ để hệ thống “phân tích”. Bạn có thể viết nhẹ nhàng.</p>
-            <textarea id="dislike3" placeholder="Ví dụ:
-1) Hay suy nghĩ nhiều
-2) Dễ nóng giận
-3) Không thích trễ hẹn"></textarea>
-          </div>
+        <div class="q">
+          <b>3) Hãy kể 3 điểm bạn không thích của cô ấy.</b>
+          <textarea id="dislike3" placeholder="1) ...
+2) ...
+3) ..."></textarea>
+        </div>
 
-          <div class="actions">
-            <button type="submit" class="btn">Xem kết quả</button>
-            <button type="button" class="btn2" id="clearBtn">Xóa lịch sử</button>
-          </div>
-
-          <p class="warn" style="margin-top:10px;">
-            <span class="pill">Lưu ý</span>
-            Kết quả mang tính giải trí. Dữ liệu chỉ lưu trên trình duyệt của bạn (LocalStorage), không gửi đi đâu cả.
-          </p>
-        </form>
-      </div>
+        <div class="actions">
+          <button id="submitBtn" type="submit">Xem kết quả</button>
+          <button id="clearBtn" type="button">Xóa lịch sử</button>
+        </div>
+      </form>
     </section>
 
-    <!-- RESULT + HISTORY -->
-    <aside class="side">
-      <section class="card panel">
-        <div class="badge"><span class="dot"></span> Kết quả “bói toán”</div>
+    <aside class="card">
+      <b>Kết quả</b>
+      <div id="resultBox" class="result">Chưa có kết quả.</div>
 
-        <div class="result" id="resultBox">
-          <h2>Chưa có kết quả</h2>
-          <p>Điền khảo sát và bấm <b>Xem kết quả</b> để nhận phán đoán.</p>
-        </div>
+      <div id="chosenBox" class="big" style="display:none;">
+        <div class="muted">Bạn đời tương lai (luôn là người số 1)</div>
+        <div id="chosenName" class="name">—</div>
+      </div>
 
-        <div class="big" id="chosenBox" style="display:none;">
-          <div class="pill">Bạn đời tương lai</div>
-          <div class="name" id="chosenName">—</div>
-          <p class="meta" id="chosenMeta">—</p>
-        </div>
-
-        <div class="divider"></div>
-        <div class="badge"><span class="dot"></span> Lịch sử ghi nhận</div>
-        <div class="history" id="historyList"></div>
-        <p class="muted" style="font-size:12px;margin:10px 0 0;">
-          Tip: Reload trang vẫn còn lịch sử vì đã lưu trong LocalStorage.
-        </p>
-      </section>
+      <div style="margin-top:14px">
+        <b>Lịch sử (lưu trên trình duyệt)</b>
+        <div id="historyList" class="muted" style="margin-top:8px">Chưa có.</div>
+      </div>
     </aside>
   </main>
 
   <script>
-    const STORAGE_KEY = "boi_toan_history_v1";
+    document.addEventListener("DOMContentLoaded", () => {
+      const STORAGE_KEY = "boi_toan_history_v1";
+      const $ = (id) => document.getElementById(id);
 
-    const $ = (id) => document.getElementById(id);
-
-    function nowText() {
-      const d = new Date();
-      const pad = (n) => String(n).padStart(2, "0");
-      return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
-    }
-
-    function readHistory(){
-      try{
-        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-      }catch(e){
-        return [];
-      }
-    }
-
-    function writeHistory(items){
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-    }
-
-    function escapeHtml(s){
-      return String(s ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
-
-    function renderHistory(){
-      const history = readHistory();
-      const box = $("historyList");
-
-      if(!history.length){
-        box.innerHTML = `<div class="item">
-          <div class="top">
-            <b>Chưa có ghi nhận nào</b>
-            <span class="time">${escapeHtml(nowText())}</span>
-          </div>
-          <p class="mini muted">Bấm “Xem kết quả” để lưu khảo sát.</p>
-        </div>`;
-        return;
+      function nowText() {
+        const d = new Date();
+        const pad = (n) => String(n).padStart(2, "0");
+        return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
       }
 
-      box.innerHTML = history.map((h) => {
-        const names = [h.girl1, h.girl2, h.girl3].filter(Boolean).join(" • ") || "(chưa nhập tên)";
-        return `<div class="item">
-          <div class="top">
-            <b>${escapeHtml(h.predictionTitle)}</b>
-            <span class="time">${escapeHtml(h.time)}</span>
+      function readHistory(){
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+        catch { return []; }
+      }
+      function writeHistory(items){
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+      }
+
+      function renderHistory(){
+        const history = readHistory();
+        const box = $("historyList");
+        if(!history.length){ box.textContent = "Chưa có."; return; }
+
+        box.innerHTML = history.map(h => `
+          <div style="margin:10px 0;padding:10px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.05)">
+            <div><b>${h.title}</b> <span style="opacity:.7;font-size:12px">(${h.time})</span></div>
           </div>
-          <p class="mini"><span class="pill">Danh sách</span> ${escapeHtml(names)}</p>
-          <p class="mini"><span class="pill">Yêu nhất</span> ${escapeHtml(h.like3_short)}</p>
-          <p class="mini"><span class="pill">Không thích</span> ${escapeHtml(h.dislike3_short)}</p>
-        </div>`;
-      }).join("");
-    }
+        `).join("");
+      }
 
-    function shortText(text, max=90){
-      const t = String(text || "").trim().replace(/\s+/g," ");
-      if(!t) return "(trống)";
-      return t.length > max ? t.slice(0, max-1) + "…" : t;
-    }
+      renderHistory();
 
-    function setResult({ chosenName, like3, dislike3 }){
-      const resultBox = $("resultBox");
-      const chosenBox = $("chosenBox");
+      $("surveyForm").addEventListener("submit", (e) => {
+        e.preventDefault();
 
-      resultBox.innerHTML = `
-        <h2>Đang “giải quẻ”...</h2>
-        <p>Hệ thống đang phân tích năng lượng tình duyên của bạn (≈ 0.5 giây 😄)</p>
-      `;
+        const girl1 = $("girl1").value.trim();
+        const chosenName = girl1 || "Người số 1";
 
-      chosenBox.style.display = "none";
+        // Hiển thị kết quả ngay lập tức (luôn người số 1)
+        $("resultBox").innerHTML = `<b>Kết luận:</b> Bạn đời tương lai của bạn là <b>${chosenName}</b> ✨`;
+        $("chosenBox").style.display = "block";
+        $("chosenName").textContent = chosenName;
 
-      // Fake delay for fun
-      setTimeout(() => {
-        resultBox.innerHTML = `
-          <h2>Kết luận</
+        // Lưu lịch sử
+        const history = readHistory();
+        history.unshift({
+          time: nowText(),
+          title: `Chốt kèo: ${chosenName} là bạn đời tương lai ✨`,
+        });
+        writeHistory(history.slice(0, 30));
+        renderHistory();
+      });
+
+      $("clearBtn").addEventListener("click", () => {
+        localStorage.removeItem(STORAGE_KEY);
+        $("resultBox").textContent = "Đã xóa lịch sử.";
+        $("chosenBox").style.display = "none";
+        renderHistory();
+      });
+    });
+  </script>
+</body>
+</html>
